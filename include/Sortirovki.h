@@ -1,7 +1,20 @@
-#define _CRT_SECURE_NO_WARNINGS
-void Bubble(int* b, int n)
-{
-    int l, f, t;
+// This file has Russian like name. Please use english like name
+
+// Please use double include guards for headers
+// see https://itecnote.com/tecnote/c-the-use-of-double-include-guards-in-c/
+#ifndef SORT_H
+#define SORT_H
+
+#define _CRT_SECURE_NO_WARNINGS // avoid that
+
+
+// Please use the same signature for every function if possible (for example bubble(array, size)). It has not the same as others
+void bubble(int* b, int n) { // please use the same code style
+    if (b == NULL) { // need null check for b
+        return;
+    }
+
+    int l, f, t; // initialize every variable by default value. Also use different lines. Check here and below
     l = n - 1;
     do {
         f = 0;
@@ -18,8 +31,8 @@ void Bubble(int* b, int n)
 }
 
 
-void BestBubble(int n, int* array) {
-    int l, start, f, b;
+void bestBubble(int n, int* array) { // need null check for array
+    int l, start, f, b; // initialize every variable by default value. Also use different lines. Check here and below
     l = n - 1;
     start = 0;
     do {
@@ -48,8 +61,8 @@ void BestBubble(int n, int* array) {
     } while (f == 1);
 }
 
-void ShellBubble(int n, int* array) {
-    int d, f, b;
+void shellBubble(int n, int* array) { // need null check fro array
+    int d, f, b; // initialize every variable by default value. Also use different lines. Check here and below
     d = n;
     do {
         f = 0;
@@ -65,8 +78,8 @@ void ShellBubble(int n, int* array) {
     } while (d > 1 || f == 1);
 }
 
-void findMin(int n, int* array) {
-    int d, f, b;
+void findMin(int n, int* array) { // need null check for array
+    int d, f, b; // initialize every variable by default value. Also use different lines. Check here and below
     d = n;
     do {
         f = 0;
@@ -82,8 +95,8 @@ void findMin(int n, int* array) {
     } while (d > 1 || f == 1);
 }
 
-void sortInclude(int n, int* a, int m) {
-    int b, j;
+void sortInclude(int n, int* a, int m) { // need null check for a
+    int b, j; // initialize every variable by default value. Also use different lines. Check here and below
     for (int i = m; i < n; i++) {
         b = a[i];
         j = i - 1;
@@ -95,21 +108,31 @@ void sortInclude(int n, int* a, int m) {
     }
 }
 
-void merger(int* first, int NF, int* second, int NS, int k, int* result) {
-    int p = 0, q = 0, count = 0;
+void merger(int* first, int NF, int* second, int NS, int k, int* result) { // need null check for first, second, result
+    int p = 0, q = 0, count = 0; // use different lines. Check here and below
+
     first[NF] = abs(first[NF - 1]);
-    if (NS > 0) first[NF] += abs(second[NS - 1]);
+    if (NS > 0) { // please use the same code style
+        first[NF] += abs(second[NS - 1]);
+    }
+
     second[NS] = first[NF];
+
     while (count < NF + NS) {
-        if (first[p] < second[q]) result[k + count] = first[p++];
-        else result[k + count] = second[q++];
+        if (first[p] < second[q]) { // please use the same code style
+            result[k + count] = first[p++];
+        }
+        else { // please use the same code style
+            result[k + count] = second[q++];
+        }
         count++;
     }
 }
-void sortMerge(int n, int* a) {
-    int* first = (int*)calloc(n, sizeof(int));
-    int* second = (int*)calloc(n / 2 + 1, sizeof(int));
-    int NF, NS, d = 1;
+void sortMerge(int n, int* a) { // need null check for a
+    int* first = (int*)calloc(n, sizeof(int)); // need null check
+    int* second = (int*)calloc(n / 2 + 1, sizeof(int)); // need null check
+    int NF, NS, d = 1; // initialize every variable by default value. Also use different lines. Check here and below
+
     while (d < n) {
         int k = 0;
         while (k + d < n) {
@@ -128,28 +151,41 @@ void sortMerge(int n, int* a) {
     }
 }
 
-void ArrayToTest(int* test, int* array, int n) {
-    for (int i = 0; i < n; i++) {
-        test[i] = array[i];
+//
+// Use the helper functions in the sample file
+//
+void arrayToTest(int* test, int* array, int n) {// need null check for test, array
+    if (test != NULL && array != NULL) {
+        for (int i = 0; i < n; i++) {
+            test[i] = array[i];
+        }
     }
 }
 
 int* newArray(int n) {
     srand(42);
     int* newArray = (int*)calloc(n, sizeof(int));
-    for (int i = 0; i < n; i++) {
-        newArray[i] = rand();
+    if (newArray != NULL) { // need null check
+        for (int i = 0; i < n; i++) {
+            newArray[i] = rand();
+        }
     }
     return newArray;
 }
 
 int* partRandom(int n) {
-    srand((unsigned int)time(NULL));
+    srand((unsigned)time(NULL)); // use unsigned instead unisgned int
+
     int* array = (int*)calloc(n, sizeof(int));
-    for (int i = 0; i < n / 500; i++) {
-        for (int j = 0; j < 500; j++) {
-            array[i * 500 + j] = rand() % 500 + i * 500;
+    if (array != NULL) { // need null check
+        for (int i = 0; i < n / 500; i++) {
+            for (int j = 0; j < 500; j++) {
+                array[i * 500 + j] = rand() % 500 + i * 500;
+            }
         }
     }
     return array;
 }
+
+#endif // !SORT_H
+// Need empty line in every file (using for git parsing)
